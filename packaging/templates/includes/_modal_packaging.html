@@ -1,0 +1,18 @@
+<div class="modal fade" id="Modal{{ packing.id }}id" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                Ввод в эксплуатацию оборотной тары <b>" {{ packing.name }} "</b>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ packaging_form.as_p }}
+                    <input type="hidden" name="packing" value="{{ packing.id }}">
+                    <button type="submit" name="submit_extradition" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

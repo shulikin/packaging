@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load bootstrap_icons %}
+{% load static %}
+{% block title %}Отчёт{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <h1 class="display-6" style="display: inline;">Отчёт. Дата: {{ created_at|date:"d.m.Y" }}</h1>
+        <hr>
+        {% if page_obj  %}
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Компания</th>
+                        <th>Тара</th>
+                        <th>Отгрузку произвел</th>
+                        <th>К-во</th>
+                        <th>Сальдо</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for extraditions in page_obj  %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ extraditions.client.company_name}}</td>
+                            <td>{{ extraditions.packing.name }}</td>
+                            <td>{{ extraditions.user.get_full_name }}</td>
+                            <td>{{ extraditions.amount }}</td>
+                            <td>{{ extraditions.balance_storage }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <strong>Статус:</strong> данные отсутствуют <hr>
+        {% endif %}
+        {% include "includes/paginator.html" %}
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+  ----------------------
+{% endblock %}
+{% block content %}
+<main>
+  <div class="container py-5">
+
+    <div class="container text-center">
+
+      <div class="row">
+        <div class="col">
+          <div class="card" style="width: 25rem;">
+            <br><center><img src="{% static 'img/director.png' %}" width="150" height="150" class="d-inline-block align-top" alt=""></center>
+            <div class="card-body">
+              <h5 class="card-title">Директор</h5>
+              <p class="card-text">
+                <lu>
+                  <li> Регистрирует новые заказы и персонал.</li>
+                  <li> Отслеживает производственный процесс.</li>
+                  <li> Распределяет рабочие обязанности.</li>
+                  <li> Контролирует сроки выполнения.</li>
+                  
+
+                </lu>
+              </p>
+              <a href="#" class="btn btn-primary">Войти</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 25rem;">
+            <br><center><img src="{% static 'img/manager.png' %}" width="150" height="150" class="d-inline-block align-top" alt=""></center>
+            <div class="card-body">
+              <h5 class="card-title">Менеджер</h5>
+              <p class="card-text">
+                <lu>
+                  <li> Регистрирует новые заказы.</li>
+                  <li> Принимает заказ у курьера.</li>
+                  <li> Отправляет готовую продукцию.</li>
+                  <li> Отслеживает цикл производства.</li>
+                </lu>
+                
+              </p>
+              <a href="#" class="btn btn-primary">Войти</a>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 25rem;">
+            <br><center><img src="{% static 'img/courier.png' %}" width="150" height="150" class="d-inline-block align-top" alt=""></center>
+            <div class="card-body">
+              <h5 class="card-title">Курьер</h5>
+              <p class="card-text">
+                <lu>
+                  <li> Принимает заказ.</li>
+                  <li> Доставляет продукцию.</li>
+                  <li> Контролирует сохранность.</li>
+                </lu>
+                <br>
+              </p>
+              <a href="#" class="btn btn-primary">Войти</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

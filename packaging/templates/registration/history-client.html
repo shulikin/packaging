@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load bootstrap_icons %}
+{% load static %}
+{% block title %}Учет ТМЦ.{% endblock %}
+{% block content %}
+
+<main>
+    <div class="container py-5">
+      <h1 class="display-6">Учет ТМЦ. Клиент: {{ client.company_name }}
+        <sup>
+          <a href="#" data-bs-toggle="modal" data-bs-target="#infoModal">
+            {% bs_icon 'info-circle' size='1em' %}
+          </a>
+        </sup>
+      </h1>
+      <hr>
+      {% include "includes/_modal_info.html" with client=client %}
+        {% if table %}
+        <br>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Тара</th>
+                <th scope="col">Дата отгрузки</th>
+                <th scope="col">Отгрузку произвел</th>
+                <th scope="col">К-во </th>
+                <th scope="col">Сальдо</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for extradition in table %}
+              <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ extradition.packing.name }}</td>
+                <td>{{ extradition.created_at|date:"d.m.Y"  }}</td>
+                <td>{{ extradition.user.first_name }} {{ extradition.user.last_name }}</td>
+                <td>{{ extradition.amount }}</td>
+                <td>{{ extradition.balance_storage }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          {% if error %}
+            <div class="alert alert-danger">{{ error }}</div>
+          {% endif %}
+        {% else %}
+        <strong>Статус: </strong> отсутствует <hr>
+        {% endif %}
+    </div>
+</main>
+{% endblock %}

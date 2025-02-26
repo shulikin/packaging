@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+{% load static %}
+{% block title %}
+  ----------------------
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <h5 class="display-6">Клиенты</h5>
+        <hr>
+        {% if form_extradition.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form_extradition.non_field_errors }}
+            </div>
+        {% endif %}
+        {% if page_obj %}
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Компания</th>
+                    <th>Отгрузка</th>
+                    <th>Возврат</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for data in page_obj %}
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td>
+                        <a href="{% url 'registration:historyclient' data.client.id %}" 
+                            class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                {{ data.client.company_name }}
+                        </a>
+                    </td>
+                    <td>
+                        <button 
+                            type="button" 
+                            class="{{ button_class }}" 
+                            data-bs-toggle="modal" 
+                            data-bs-target="#Modal{{ data.client.id }}out">
+                            <span style="display: inline-block; width: 50px; text-align: center;">{% bs_icon 'truck' size='1.5em' %}</span>
+                        </button>
+                        {% include "includes/_modal_extradition.html" with client=data.client %}
+                    </td>
+                    <td>
+                        <a href="{% url 'registration:client' data.client.id %}" class="{{ button_class }}" >
+                            <span style="display: inline-block; width: 50px; text-align: center;">{{ data.total_stock }}</span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <strong>Статус:</strong> данные отсутствуют <hr>
+        {% endif %}
+        {% include "includes/paginator.html" %}
+    </div>
+</main>
+{% endblock %}

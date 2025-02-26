@@ -1,0 +1,16 @@
+<div class="modal fade" id="infoModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Информация</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <strong>Компания:</strong> {{ client.company_name }} <hr>
+                <strong>Адрес:</strong> {{ client.address }} <hr>
+                <strong>Контактное лицо:</strong> {{ client.first_name }} {{ client.last_name }} <hr>
+                <strong>Телефон:</strong> {{ client.phone_number }}
+            </div>
+        </div>
+    </div>
+</div>

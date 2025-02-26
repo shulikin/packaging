@@ -1,0 +1,18 @@
+<div class="modal fade" id="Modal{{ data.client.id }}out" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <strong>Отправка</strong> оборотной тары заказчику - {{ client.company_name }}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form_extradition.as_p }}
+                    <input type="hidden" name="client" value="{{ client.id }}">
+                    <button type="submit" name="submit_extradition" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

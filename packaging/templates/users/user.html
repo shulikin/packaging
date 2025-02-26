@@ -1,0 +1,62 @@
+{% comment %} {% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load bootstrap_icons %}
+{% block title %}
+  ----------------------
+{% endblock %}
+{% block content %}
+
+{% include "order/director_header.html" %}
+
+<main>
+  <div class="container py-5">
+    <h1 class="display-6"> {% bs_icon 'person-badge' size='1em' %}{{ titel }}</h1><hr>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Имя </th>
+          <th scope="col">Логин</th>
+          <th scope="col">Пароль</th>
+          <th scope="col">E-mail </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in table %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+            <td> {{ user.first_name }} {{ user.last_name }}</td>
+            <td> {{ user.username }} </td>
+            <td><a href="{% url 'users:user' %}">{% bs_icon 'envelope-paper' size='1.5em' %}</a></td>
+            <td> {{ user.email }} </td>
+        </tr>
+        {% endfor %} 
+
+      </tbody>
+    </table>
+
+
+  </div>
+</main>
+{% comment %} {{ table }} {% endcomment %}
+
+
+
+
+    {% comment %} <div class="container-md">100% director</div>
+    The total is {{ total }}
+    <button type="button" class="btn btn-success">+ Новый заказ</button>
+
+
+    {% render_table table %}
+{% endcomment %}
+
+    
+    {% comment %} {% include "includes/paginator.html" %}
+    {% endblock %} {% endcomment %}
+{% comment %} 
+  </div>
+</main>
+
+{% endblock %} {% endcomment %} {% endcomment %}

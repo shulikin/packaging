@@ -1,0 +1,39 @@
+<div class="modal fade" id="returnModal{{ extradition.id }}" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <strong>Возврат оборотной тары</strong> - {{ client.company_name }}
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="client_id" value="{{ extradition.client.id }}">
+                    <input type="hidden" name="packing_id" value="{{ extradition.packing.id }}"> 
+                    <input type="hidden" name="extradition_id" value="{{ extradition.id }}"> 
+                    <div class="mb-3">
+                        <label for="balance_amount">Количество:</label>
+                        <input 
+                            type="number" 
+                            id="balance_amount" 
+                            name="balance_amount" 
+                            value="{{ extradition.balance_storage }}" 
+                            class="form-control" 
+                            min="1">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label for="comeback_text">Комментарий:</label>
+                        <textarea 
+                            id="comeback_text" 
+                            name="text" 
+                            class="form-control" 
+                            rows="3">{{ extradition.text }}</textarea>
+                    </div>
+                    
+                    <button type="submit" name="submit_comeback" class="btn btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

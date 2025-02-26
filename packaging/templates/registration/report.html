@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load django_bootstrap5 %}
+{% load bootstrap_icons %}
+{% load static %}
+{% block title %}Отчёт{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <h1 class="display-6" style="display: inline;">Отчёт</h1>
+        <hr>
+        {% if page_obj  %}
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Компания</th>
+                        <th>Тара</th>
+                        <th>Дата отгрузки</th>
+                        <th>Отгрузку произвел</th>
+                        <th>К-во</th>
+                        <th>Сальдо</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for extraditions in page_obj  %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>
+                                <a href="{% url 'registration:reportclient' extraditions.client.id %}"
+                                    class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                        {{ extraditions.client.company_name}}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'registration:reportpacking' extraditions.packing.id %}"
+                                    class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                        {{ extraditions.packing.name }}
+                                </a>
+                            </td>
+                            <td>
+                                <a href="{% url 'registration:reportdate' extraditions.created_at.year extraditions.created_at.month extraditions.created_at.day %}" 
+                                    class="link-success link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">
+                                        {{ extraditions.created_at|date:"d.m.Y" }}
+                                </a>
+                            </td>
+                            <td>{{ extraditions.user.get_full_name }}</td>
+                            <td>{{ extraditions.amount }}</td>
+                            <td>{{ extraditions.balance_storage }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <strong>Статус:</strong> данные отсутствуют <hr>
+        {% endif %}
+        {% include "includes/paginator.html" %}
+    </div>
+</main>
+{% endblock %}

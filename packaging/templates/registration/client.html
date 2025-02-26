@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+{% load static %}
+{% block title %}
+Клиентские остатки
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <h1 class="display-6" style="display: inline;">
+            Клиентские остатки: {{ client.company_name }}
+            <sup>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#infoModal">
+                    {% bs_icon 'info-circle' size='1em' %}
+                </a>
+            </sup>
+        </h1>
+        <hr>
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        {% include "includes/_modal_info.html" with client=client %}
+        {% if page_obj %}
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Тара</th>
+                        <th>Дата отгрузки</th>
+                        <th>Отгрузку произвел</th>
+                        <th>К-во</th>
+                        <th>Сальдо</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for extradition in page_obj %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ extradition.packing.name }}</td>
+                            <td>{{ extradition.created_at|date:"d.m.Y" }}</td>
+                            <td>{{ extradition.user.get_full_name }}</td>
+                            <td>{{ extradition.amount }}</td>
+                            
+                            
+                            <td>
+                                <button 
+                                    type="button" 
+                                    class="{{ button_class }}"
+                                    data-bs-toggle="modal" 
+                                    data-bs-target="#returnModal{{ extradition.id }}">
+                                    <span style="display: inline-block; width: 50px; text-align: center;">{{ extradition.balance_storage }}</span>
+                                </button>
+                                {% include "includes/_modal_return.html" with extradition=extradition client=client %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% if error %}
+                <div class="alert alert-danger">{{ error }}</div>
+            {% endif %}
+        {% else %}
+            <h5>Задолженность отсутствует!</h5> 
+        {% endif %}
+        {% include "includes/paginator.html" %}
+    </div>
+</main>
+{% endblock %}

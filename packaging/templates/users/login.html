@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load django_bootstrap5 %}
+{% block content %}
+<main>
+    <div class="container py-5">
+        <h3>Вход</h3>
+        <div class="card" style="width: 25rem;">
+            <div class="card-body">
+              <form method="post">
+                {% csrf_token %}
+                {% bootstrap_form form %}
+                {% bootstrap_button button_type="submit" content="Авторизация" %}
+              </form>
+            </div>
+          </div>
+{% endblock %}

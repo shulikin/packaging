@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load bootstrap_icons %}
+{% load static %}
+{% block title %}
+  ----------------------
+{% endblock %}
+{% block content %}
+<main>
+    <div class="container py-5">
+      <h5 class="display-6">Склад</h5><hr>
+      {% if page_obj %}
+        <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Тара</th>
+            <th scope="col">Описание</th>
+            <th scope="col">Наличие</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for packing in page_obj %}
+            <tr>
+              <th scope="row">{{ forloop.counter }}</th>
+              <td>{{ packing.name }}</td>
+              <td>{{ packing.text }}</td>
+              <td>
+
+                <button 
+                  type="button" 
+                  class="{{ button_class }}" 
+                  data-bs-toggle="modal" 
+                  data-bs-target="#Modal{{ packing.id }}id">
+                  <span style="display: inline-block; width: 50px; text-align: center;">{{ packing.balance }}</span>
+                  
+                </button>
+
+                {% include "includes/_modal_packaging.html" with client=data.client %}
+
+
+              </td>
+            </tr>
+            {% endfor %} 
+        </tbody>
+      </table>
+      
+    {% else %}
+        <strong>Статус:</strong> данные отсутствуют <hr>
+    {% endif %}
+    {% include "includes/paginator.html" %} <!-- Пагинация -->
+    </div>
+  </main>
+{% endblock %}
